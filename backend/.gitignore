@@ -1,0 +1,15 @@
+node_modules
+.env
+dataset
+data
+*.pt
+*.pth
+*.h5
+*.bin
+*.model
+.venv
+venv
+__pycache__
+*.pyc
+dist
+build
