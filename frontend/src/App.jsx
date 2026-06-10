@@ -15,9 +15,13 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/* AUTH */}
         <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />   {/* ← ADD THIS */}
         <Route path="/register" element={<Register />} />
 
+        {/* APP */}
         <Route path="/home" element={<AppLayout><HomeDashboard /></AppLayout>} />
         <Route path="/upload/text" element={<AppLayout><UploadText /></AppLayout>} />
         <Route path="/upload/image" element={<AppLayout><UploadImage /></AppLayout>} />
@@ -25,6 +29,7 @@ export default function App() {
         <Route path="/result" element={<AppLayout><ResultDashboard /></AppLayout>} />
         <Route path="/explain" element={<AppLayout><ExplainableView /></AppLayout>} />
         <Route path="/history" element={<AppLayout><History /></AppLayout>} />
+
       </Routes>
     </BrowserRouter>
   );

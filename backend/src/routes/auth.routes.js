@@ -3,17 +3,25 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
 
-// REGISTER
+/* ===============================
+   REGISTER
+================================ */
 router.post("/register", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
 
-    if (!name || !email || !password)
+    let { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
       return res.status(400).json({ error: "All fields required" });
+    }
+
+    email = email.toLowerCase().trim();
 
     const existing = await User.findOne({ email });
-    if (existing)
+
+    if (existing) {
       return res.status(400).json({ error: "Email already exists" });
+    }
 
     const hashed = await bcrypt.hash(password, 10);
 
@@ -23,25 +31,48 @@ router.post("/register", async (req, res) => {
       password: hashed
     });
 
-    res.json({ message: "Registered successfully" });
+    res.json({
+      message: "Registered successfully",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email
+      }
+    });
 
   } catch (err) {
+    console.error("REGISTER ERROR:", err);
     res.status(500).json({ error: err.message });
   }
 });
 
-// LOGIN
+
+/* ===============================
+   LOGIN
+================================ */
 router.post("/login", async (req, res) => {
+
   try {
-    const { email, password } = req.body;
+
+    let { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password required" });
+    }
+
+    email = email.toLowerCase().trim();
 
     const user = await User.findOne({ email });
-    if (!user)
+
+    if (!user) {
       return res.status(401).json({ error: "Invalid credentials" });
+    }
 
     const match = await bcrypt.compare(password, user.password);
-    if (!match)
+
+    if (!match) {
       return res.status(401).json({ error: "Invalid credentials" });
+    }
 
     const token = jwt.sign(
       { id: user._id },
@@ -49,11 +80,25 @@ router.post("/login", async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.json({ token });
+    res.json({
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email
+      }
+    });
 
   } catch (err) {
-    res.status(500).json({ error: err.message });
+
+    console.error("LOGIN ERROR:", err);
+
+    res.status(500).json({
+      error: "Login failed"
+    });
+
   }
+
 });
 
 module.exports = router;
