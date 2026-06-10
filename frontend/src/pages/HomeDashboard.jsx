@@ -8,7 +8,7 @@ export default function HomeDashboard() {
     <div className="fixed inset-0 w-screen h-screen overflow-y-auto bg-gradient-to-br from-white via-purple-50 to-indigo-50 text-slate-800 pt-14 sm:pt-16 md:pt-20">
       {/* Full coverage background layer - covers entire viewport */}
       <div className="fixed inset-0 bg-gradient-to-br from-white via-purple-50/90 to-indigo-100/70 -z-10"></div>
-      
+
       {/* Animated background elements - Purple/Indigo organic shapes */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-5">
         <div className="absolute top-0 left-0 w-full h-full bg-white/40"></div>
@@ -72,7 +72,7 @@ export default function HomeDashboard() {
             <p className="text-slate-600 text-base sm:text-lg px-2 sm:px-0">Select the content format you want to investigate</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto">
             <AnalysisCard
               icon={
                 <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -101,21 +101,6 @@ export default function HomeDashboard() {
               color="from-indigo-500 to-violet-600"
               accentColor="indigo"
               onClick={() => navigate("/upload/image")}
-            />
-
-            <AnalysisCard
-              icon={
-                <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-              }
-              title="Video Intelligence"
-              subtitle="Video Content"
-              description="Multi-layered video analysis examining frame sequences, audio-text alignment, deepfake indicators, and narrative construction techniques."
-              features={["Frame Analysis", "Audio Sync Check", "Deepfake Detection", "Transcript Analysis"]}
-              color="from-violet-500 to-purple-600"
-              accentColor="violet"
-              onClick={() => navigate("/upload/video")}
             />
           </div>
         </div>
